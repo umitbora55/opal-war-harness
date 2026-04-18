@@ -1,0 +1,33 @@
+{
+  "mode": "smoke",
+  "environment": "local",
+  "seed": 424242,
+  "runName": "opal-war-base",
+  "backend": {
+    "baseUrl": "",
+    "controlPlaneUrl": "",
+    "flutterBridgeUrl": ""
+  },
+  "database": {
+    "enabled": false,
+    "url": "",
+    "migrationsDir": "./migrations",
+    "auditTablesPrefix": "war_harness_",
+    "allowJsonFallback": true
+  },
+  "limits": {
+    "userCount": 100,
+    "maxConcurrentActions": 8,
+    "durationMinutes": 15
+  },
+  "localeDefaults": {
+    "country": "TR",
+    "city": "Istanbul",
+    "timezone": "Europe/Istanbul"
+  },
+  "controlSurface": {
+    "enabled": true,
+    "secret": "warp-test-secret",
+    "port": 4010
+  }
+}

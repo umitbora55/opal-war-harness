@@ -1,0 +1,33 @@
+{
+  "mode": "certify",
+  "environment": "http",
+  "seed": 515151,
+  "runName": "opal-war-certification",
+  "backend": {
+    "baseUrl": "http://127.0.0.1:3000",
+    "controlPlaneUrl": "http://127.0.0.1:3001",
+    "flutterBridgeUrl": "http://127.0.0.1:4000"
+  },
+  "database": {
+    "enabled": true,
+    "url": "",
+    "migrationsDir": "./migrations",
+    "auditTablesPrefix": "war_harness_",
+    "allowJsonFallback": false
+  },
+  "limits": {
+    "userCount": 100,
+    "maxConcurrentActions": 12,
+    "durationMinutes": 30
+  },
+  "localeDefaults": {
+    "country": "TR",
+    "city": "Istanbul",
+    "timezone": "Europe/Istanbul"
+  },
+  "controlSurface": {
+    "enabled": true,
+    "secret": "warp-test-secret",
+    "port": 4010
+  }
+}

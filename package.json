@@ -1,0 +1,32 @@
+{
+  "name": "opal-war-harness",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OPAL WAR HARNESS - synthetic user simulation platform for The Opal",
+  "type": "module",
+  "bin": {
+    "opal-war": "./dist/cli/opal-war.js"
+  },
+  "scripts": {
+    "dev": "tsx src/cli/opal-war.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/cli/opal-war.js",
+    "serve": "tsx src/server/war-harness-server.ts",
+    "smoke": "tsx src/cli/opal-war.ts smoke",
+    "behavioral": "tsx src/cli/opal-war.ts behavioral",
+    "replay": "tsx src/cli/opal-war.ts replay",
+    "certify": "tsx src/cli/opal-war.ts certify",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "export:provider": "tsx src/metrics/export-provider.ts",
+    "test": "node --import tsx --test --test-timeout=120000 test/**/*.test.ts",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.15.18",
+    "@types/pg": "^8.15.5",
+    "pg": "^8.16.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

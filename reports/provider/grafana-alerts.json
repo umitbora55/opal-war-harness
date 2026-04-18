@@ -1,0 +1,168 @@
+{
+  "apiVersion": 1,
+  "groups": [
+    {
+      "orgId": 1,
+      "name": "opal-war-harness",
+      "folder": "opal",
+      "interval": "1m",
+      "rules": [
+        {
+          "uid": "alert-trust-false-progression",
+          "title": "Trust False Progression",
+          "condition": "A",
+          "data": [
+            {
+              "refId": "A",
+              "queryType": "timeSeriesQuery",
+              "relativeTimeRange": {
+                "from": 60,
+                "to": 0
+              },
+              "datasourceUid": "prometheus",
+              "model": {
+                "expr": "trust_false_progression",
+                "legendFormat": "trust_false_progression"
+              }
+            }
+          ],
+          "for": "1m",
+          "noDataState": "Alerting",
+          "execErrState": "Alerting",
+          "labels": {
+            "severity": "critical",
+            "blocking": "true"
+          },
+          "annotations": {
+            "summary": "Trust False Progression",
+            "runName": "opal-war-base"
+          }
+        },
+        {
+          "uid": "alert-duplicate-state",
+          "title": "Duplicate State",
+          "condition": "A",
+          "data": [
+            {
+              "refId": "A",
+              "queryType": "timeSeriesQuery",
+              "relativeTimeRange": {
+                "from": 60,
+                "to": 0
+              },
+              "datasourceUid": "prometheus",
+              "model": {
+                "expr": "duplicate_state_rate",
+                "legendFormat": "duplicate_state_rate"
+              }
+            }
+          ],
+          "for": "1m",
+          "noDataState": "Alerting",
+          "execErrState": "Alerting",
+          "labels": {
+            "severity": "critical",
+            "blocking": "true"
+          },
+          "annotations": {
+            "summary": "Duplicate State",
+            "runName": "opal-war-base"
+          }
+        },
+        {
+          "uid": "alert-paywall-mistiming",
+          "title": "Paywall Mistiming",
+          "condition": "A",
+          "data": [
+            {
+              "refId": "A",
+              "queryType": "timeSeriesQuery",
+              "relativeTimeRange": {
+                "from": 60,
+                "to": 0
+              },
+              "datasourceUid": "prometheus",
+              "model": {
+                "expr": "paywall_mistiming",
+                "legendFormat": "paywall_mistiming"
+              }
+            }
+          ],
+          "for": "1m",
+          "noDataState": "Alerting",
+          "execErrState": "Alerting",
+          "labels": {
+            "severity": "high",
+            "blocking": "true"
+          },
+          "annotations": {
+            "summary": "Paywall Mistiming",
+            "runName": "opal-war-base"
+          }
+        },
+        {
+          "uid": "alert-concentration",
+          "title": "Marketplace Concentration",
+          "condition": "A",
+          "data": [
+            {
+              "refId": "A",
+              "queryType": "timeSeriesQuery",
+              "relativeTimeRange": {
+                "from": 60,
+                "to": 0
+              },
+              "datasourceUid": "prometheus",
+              "model": {
+                "expr": "marketplace_concentration",
+                "legendFormat": "marketplace_concentration"
+              }
+            }
+          ],
+          "for": "1m",
+          "noDataState": "Alerting",
+          "execErrState": "Alerting",
+          "labels": {
+            "severity": "high",
+            "blocking": "true"
+          },
+          "annotations": {
+            "summary": "Marketplace Concentration",
+            "runName": "opal-war-base"
+          }
+        },
+        {
+          "uid": "alert-orchestration-conflict",
+          "title": "Orchestration Conflict",
+          "condition": "A",
+          "data": [
+            {
+              "refId": "A",
+              "queryType": "timeSeriesQuery",
+              "relativeTimeRange": {
+                "from": 60,
+                "to": 0
+              },
+              "datasourceUid": "prometheus",
+              "model": {
+                "expr": "orchestration_conflict_rate",
+                "legendFormat": "orchestration_conflict_rate"
+              }
+            }
+          ],
+          "for": "1m",
+          "noDataState": "Alerting",
+          "execErrState": "Alerting",
+          "labels": {
+            "severity": "critical",
+            "blocking": "true"
+          },
+          "annotations": {
+            "summary": "Orchestration Conflict",
+            "runName": "opal-war-base"
+          }
+        }
+      ]
+    }
+  ]
+}

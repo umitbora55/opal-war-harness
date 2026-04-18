@@ -1,0 +1,18 @@
+{
+  "countries": {
+    "TR": {
+      "onboardingCompletionBand": [0.68, 0.92],
+      "swipeRateBand": [0.12, 0.42],
+      "matchRateBand": [0.03, 0.14],
+      "replyLatencyBuckets": ["<5m", "5m-1h", "1h-24h", ">24h"],
+      "irlProgressionBaseline": 0.18
+    },
+    "DE": {
+      "onboardingCompletionBand": [0.74, 0.95],
+      "swipeRateBand": [0.10, 0.38],
+      "matchRateBand": [0.04, 0.16],
+      "replyLatencyBuckets": ["<15m", "15m-2h", "2h-24h", ">24h"],
+      "irlProgressionBaseline": 0.22
+    }
+  }
+}

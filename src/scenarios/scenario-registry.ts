@@ -1,0 +1,187 @@
+import type { ScenarioDefinition } from '../core/types.js';
+
+function scenario(
+  input: Omit<ScenarioDefinition, 'userCount' | 'seed' | 'blocking'> & {
+    userCount?: number;
+    seed?: number;
+    blocking?: boolean;
+  },
+): ScenarioDefinition {
+  return {
+    ...input,
+    userCount: input.userCount ?? 20,
+    seed: input.seed ?? 424242,
+    blocking: input.blocking ?? true,
+  };
+}
+
+export function loadScenarioRegistry(): ScenarioDefinition[] {
+  return [
+    scenario({
+      id: 'CORE-HAPPY-001',
+      name: 'Core Happy Path',
+      category: 'core',
+      objective: 'Validate onboarding, matching, messaging, and IRL intent on a healthy flow.',
+      expectedSignals: ['onboarding.complete', 'match.create', 'message.send', 'irl.intent'],
+      replayTags: ['happy', 'baseline', 'critical'],
+      personas: ['high-quality-engaged', 'fast-responder', 'selective-liker'],
+      locale: { country: 'TR', city: 'Istanbul', timezone: 'Europe/Istanbul' },
+      steps: [
+        { id: 's1', kind: 'account.create', actor: 'p0', atMs: 0 },
+        { id: 's2', kind: 'onboarding.complete', actor: 'p0', atMs: 5_000, expectation: { invariantIds: ['INV-ONB-001'] } },
+        { id: 's3', kind: 'discover.like', actor: 'p0', target: 'p1', atMs: 15_000, expectation: { invariantIds: ['INV-SWIPE-001'] } },
+        { id: 's4', kind: 'match.create', actor: 'p0', target: 'p1', atMs: 20_000, expectation: { invariantIds: ['INV-MATCH-001'] } },
+        { id: 's5', kind: 'message.send', actor: 'p0', target: 'p1', atMs: 30_000, expectation: { invariantIds: ['INV-MSG-001'] } },
+        { id: 's6', kind: 'message.reply', actor: 'p1', target: 'p0', atMs: 50_000, expectation: { invariantIds: ['INV-MSG-001'] } },
+        { id: 's7', kind: 'irl.intent', actor: 'p0', target: 'p1', atMs: 90_000, expectation: { invariantIds: ['INV-IRL-001'] } },
+        { id: 's8', kind: 'irl.plan', actor: 'p1', target: 'p0', atMs: 120_000, expectation: { invariantIds: ['INV-IRL-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'COLDSTART-001',
+      name: 'Cold Start Liquidity',
+      category: 'marketplace',
+      objective: 'Bootstrap a low liquidity city without starvation.',
+      expectedSignals: ['candidate_generation', 'exposure_fairness', 'city_liquidity'],
+      replayTags: ['cold-start', 'liquidity'],
+      personas: ['low-liquidity-market', 'underexposed-hq', 'selective-liker'],
+      locale: { country: 'TR', city: 'Ankara', timezone: 'Europe/Istanbul' },
+      userCount: 30,
+      steps: [
+        { id: 's1', kind: 'discover.load', actor: 'p0', atMs: 0 },
+        { id: 's2', kind: 'discover.pass', actor: 'p0', target: 'p1', atMs: 4_000 },
+        { id: 's3', kind: 'discover.like', actor: 'p1', target: 'p0', atMs: 9_000, expectation: { invariantIds: ['INV-SWIPE-001'] } },
+        { id: 's4', kind: 'match.create', actor: 'p1', target: 'p0', atMs: 15_000 },
+        { id: 's5', kind: 'notification.open', actor: 'p0', atMs: 20_000, expectation: { invariantIds: ['INV-NOTIF-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'TRUST-ATTACK-001',
+      name: 'Trust Attack',
+      category: 'trust',
+      objective: 'Ensure scam and catfish behavior is contained.',
+      expectedSignals: ['verification_hold', 'reports', 'blocks'],
+      replayTags: ['trust', 'adversarial'],
+      personas: ['spammer-scammer', 'catfish-like', 'safety-sensitive'],
+      locale: { country: 'DE', city: 'Berlin', timezone: 'Europe/Berlin' },
+      userCount: 50,
+      steps: [
+        { id: 's1', kind: 'verification.start', actor: 'p0', atMs: 0, expectation: { invariantIds: ['INV-MOD-001'] } },
+        { id: 's2', kind: 'verification.fail', actor: 'p0', atMs: 8_000, expectation: { invariantIds: ['INV-MOD-001'] } },
+        { id: 's3', kind: 'trust.report', actor: 'p1', target: 'p0', atMs: 12_000, expectation: { invariantIds: ['INV-T&S-001'] } },
+        { id: 's4', kind: 'trust.hold', actor: 'control-plane', target: 'p0', atMs: 15_000, expectation: { invariantIds: ['INV-T&S-001', 'INV-ADM-001'] } },
+        { id: 's5', kind: 'trust.block', actor: 'p1', target: 'p0', atMs: 18_000, expectation: { invariantIds: ['INV-T&S-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'MSG-DRIFT-001',
+      name: 'Messaging Drift',
+      category: 'realtime',
+      objective: 'Detect delivery/read inconsistencies and websocket drift.',
+      expectedSignals: ['delivered', 'read', 'retry', 'socket'],
+      replayTags: ['messaging', 'realtime'],
+      personas: ['fast-responder', 'slow-responder', 'ghoster'],
+      locale: { country: 'TR', city: 'Istanbul', timezone: 'Europe/Istanbul' },
+      steps: [
+        { id: 's1', kind: 'match.create', actor: 'p0', target: 'p1', atMs: 0 },
+        { id: 's2', kind: 'message.send', actor: 'p0', target: 'p1', atMs: 2_000, expectation: { invariantIds: ['INV-MSG-001'] } },
+        { id: 's3', kind: 'notification.open', actor: 'p1', atMs: 4_000, expectation: { invariantIds: ['INV-NOTIF-001'] } },
+        { id: 's4', kind: 'message.reply', actor: 'p1', target: 'p0', atMs: 7_000, expectation: { invariantIds: ['INV-NOTIF-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'ORCH-CONFLICT-001',
+      name: 'Orchestration Conflict',
+      category: 'orchestration',
+      objective: 'Ensure only one primary intervention wins a decision window.',
+      expectedSignals: ['decision_log', 'suppression', 'cooldown'],
+      replayTags: ['orchestration', 'conflict'],
+      personas: ['churn-risk', 'premium-buyer', 'safety-sensitive'],
+      locale: { country: 'TR', city: 'Ankara', timezone: 'Europe/Istanbul' },
+      steps: [
+        { id: 's1', kind: 'orchestration.decide', actor: 'brain', atMs: 0, expectation: { invariantIds: ['INV-ORCH-001'] } },
+        { id: 's2', kind: 'orchestration.decide', actor: 'brain', atMs: 500, expectation: { invariantIds: ['INV-ORCH-001'] } },
+        { id: 's3', kind: 'control_plane.action', actor: 'operator', atMs: 1_000, expectation: { invariantIds: ['INV-ADM-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'MARKET-DISTORT-001',
+      name: 'Marketplace Distortion',
+      category: 'marketplace',
+      objective: 'Detect superstar concentration and underexposure.',
+      expectedSignals: ['concentration', 'fairness', 'underexposure'],
+      replayTags: ['marketplace', 'fairness'],
+      personas: ['superstar-profile', 'underexposed-hq', 'over-liker'],
+      locale: { country: 'DE', city: 'Berlin', timezone: 'Europe/Berlin' },
+      userCount: 120,
+      steps: [
+        { id: 's1', kind: 'discover.load', actor: 'p0', atMs: 0 },
+        { id: 's2', kind: 'discover.like', actor: 'p1', target: 'p0', atMs: 1_000 },
+        { id: 's3', kind: 'discover.like', actor: 'p2', target: 'p0', atMs: 1_500 },
+        { id: 's4', kind: 'match.create', actor: 'p0', target: 'p1', atMs: 4_000, expectation: { invariantIds: ['INV-MATCH-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'IRL-RISK-001',
+      name: 'IRL Risk',
+      category: 'irl',
+      objective: 'Prevent fake readiness and unsafe progression.',
+      expectedSignals: ['irl.intent', 'irl.plan', 'hold'],
+      replayTags: ['irl', 'safety'],
+      personas: ['cautious-serious', 'ghoster', 'safety-sensitive'],
+      locale: { country: 'TR', city: 'Istanbul', timezone: 'Europe/Istanbul' },
+      steps: [
+        { id: 's1', kind: 'irl.intent', actor: 'p0', target: 'p1', atMs: 0, expectation: { invariantIds: ['INV-IRL-001'] } },
+        { id: 's2', kind: 'irl.plan', actor: 'p1', target: 'p0', atMs: 2_000, expectation: { invariantIds: ['INV-IRL-001'] } },
+        { id: 's3', kind: 'irl.cancel', actor: 'p1', target: 'p0', atMs: 10_000, expectation: { invariantIds: ['INV-IRL-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'PREMIUM-RISK-001',
+      name: 'Premium Risk',
+      category: 'premium',
+      objective: 'Catch paywall mistiming, entitlement drift, and unfair boost effects.',
+      expectedSignals: ['premium', 'entitlement', 'visibility'],
+      replayTags: ['premium', 'paywall'],
+      personas: ['premium-buyer', 'churn-risk', 'fast-casual'],
+      locale: { country: 'DE', city: 'Berlin', timezone: 'Europe/Berlin' },
+      steps: [
+        { id: 's1', kind: 'premium.buy', actor: 'p0', atMs: 0, expectation: { invariantIds: ['INV-PREM-001'] } },
+        { id: 's2', kind: 'discover.load', actor: 'p0', atMs: 2_000, expectation: { invariantIds: ['INV-PREM-001'] } },
+        { id: 's3', kind: 'premium.expire', actor: 'p0', atMs: 10_000, expectation: { invariantIds: ['INV-PREM-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'LOCALIZATION-001',
+      name: 'Localization Variance',
+      category: 'localization',
+      objective: 'Verify country policies and pacing behavior diverge correctly.',
+      expectedSignals: ['country_config', 'pacing', 'policy_matrix'],
+      replayTags: ['localization', 'country'],
+      personas: ['cautious-serious', 'fast-casual', 'safety-sensitive'],
+      locale: { country: 'TR', city: 'Istanbul', timezone: 'Europe/Istanbul' },
+      userCount: 40,
+      steps: [
+        { id: 's1', kind: 'account.login', actor: 'p0', atMs: 0 },
+        { id: 's2', kind: 'discover.load', actor: 'p0', atMs: 1_000 },
+        { id: 's3', kind: 'notification.open', actor: 'p0', atMs: 2_000, expectation: { invariantIds: ['INV-LOC-001'] } },
+      ],
+    }),
+    scenario({
+      id: 'RESILIENCY-001',
+      name: 'Resiliency',
+      category: 'resilience',
+      objective: 'Validate retries, idempotency, and recovery from transient infra failures.',
+      expectedSignals: ['retry', 'dlq', 'idempotency'],
+      replayTags: ['resiliency', 'retries'],
+      personas: ['fast-responder', 'reactivated', 'low-effort'],
+      locale: { country: 'TR', city: 'Istanbul', timezone: 'Europe/Istanbul' },
+      steps: [
+        { id: 's1', kind: 'account.login', actor: 'p0', atMs: 0 },
+        { id: 's2', kind: 'discover.load', actor: 'p0', atMs: 1_000 },
+        { id: 's3', kind: 'message.send', actor: 'p0', target: 'p1', atMs: 2_000, expectation: { invariantIds: ['INV-EVT-001'] } },
+        { id: 's4', kind: 'message.reply', actor: 'p1', target: 'p0', atMs: 7_000, expectation: { invariantIds: ['INV-EVT-001'] } },
+      ],
+    }),
+  ];
+}

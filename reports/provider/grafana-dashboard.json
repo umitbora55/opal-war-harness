@@ -1,0 +1,232 @@
+{
+  "uid": "909da1e2bf07",
+  "title": "OPAL WAR HARNESS",
+  "tags": [
+    "opal",
+    "war-harness",
+    "TR"
+  ],
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Onboarding Health",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "O",
+          "expr": "sum(onboarding_completion)",
+          "legendFormat": "onboarding_completion"
+        },
+        {
+          "refId": "P",
+          "expr": "sum(profile_completion)",
+          "legendFormat": "profile_completion"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Marketplace Balance",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "S",
+          "expr": "sum(swipe_to_match)",
+          "legendFormat": "swipe_to_match"
+        },
+        {
+          "refId": "M",
+          "expr": "sum(marketplace_concentration)",
+          "legendFormat": "marketplace_concentration"
+        },
+        {
+          "refId": "U",
+          "expr": "sum(underexposure_rate)",
+          "legendFormat": "underexposure_rate"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Trust and Safety",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "refId": "T",
+          "expr": "sum(trust_intervention_rate)",
+          "legendFormat": "trust_intervention_rate"
+        },
+        {
+          "refId": "T",
+          "expr": "sum(trust_false_progression)",
+          "legendFormat": "trust_false_progression"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Messaging Reliability",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "targets": [
+        {
+          "refId": "M",
+          "expr": "sum(message_to_reply)",
+          "legendFormat": "message_to_reply"
+        },
+        {
+          "refId": "R",
+          "expr": "sum(retry_rate)",
+          "legendFormat": "retry_rate"
+        },
+        {
+          "refId": "D",
+          "expr": "sum(duplicate_state_rate)",
+          "legendFormat": "duplicate_state_rate"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Premium Integrity",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "targets": [
+        {
+          "refId": "P",
+          "expr": "sum(paywall_mistiming)",
+          "legendFormat": "paywall_mistiming"
+        },
+        {
+          "refId": "E",
+          "expr": "sum(entitlement_drift)",
+          "legendFormat": "entitlement_drift"
+        },
+        {
+          "refId": "P",
+          "expr": "sum(premium_fairness_delta)",
+          "legendFormat": "premium_fairness_delta"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "IRL Conversion",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "targets": [
+        {
+          "refId": "R",
+          "expr": "sum(reply_to_irl_intent)",
+          "legendFormat": "reply_to_irl_intent"
+        },
+        {
+          "refId": "P",
+          "expr": "sum(plan_abandon_rate)",
+          "legendFormat": "plan_abandon_rate"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "Orchestration",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "targets": [
+        {
+          "refId": "O",
+          "expr": "sum(orchestration_conflict_rate)",
+          "legendFormat": "orchestration_conflict_rate"
+        },
+        {
+          "refId": "S",
+          "expr": "sum(suppression_correctness)",
+          "legendFormat": "suppression_correctness"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      }
+    }
+  ]
+}

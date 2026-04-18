@@ -1,0 +1,33 @@
+{
+  "mode": "behavioral",
+  "environment": "local",
+  "seed": 13371337,
+  "runName": "opal-war-sandbox",
+  "backend": {
+    "baseUrl": "http://localhost:3000/api/v1",
+    "controlPlaneUrl": "http://localhost:3000/api/v1",
+    "flutterBridgeUrl": ""
+  },
+  "database": {
+    "enabled": true,
+    "url": "",
+    "migrationsDir": "./migrations",
+    "auditTablesPrefix": "war_harness_",
+    "allowJsonFallback": true
+  },
+  "limits": {
+    "userCount": 250,
+    "maxConcurrentActions": 16,
+    "durationMinutes": 45
+  },
+  "localeDefaults": {
+    "country": "TR",
+    "city": "Istanbul",
+    "timezone": "Europe/Istanbul"
+  },
+  "controlSurface": {
+    "enabled": true,
+    "secret": "warp-test-secret",
+    "port": 4010
+  }
+}
