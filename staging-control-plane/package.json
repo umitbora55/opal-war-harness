@@ -1,0 +1,5 @@
+{
+  "name": "opal-war-staging-control-plane",
+  "private": true,
+  "type": "module"
+}

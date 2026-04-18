@@ -4,9 +4,9 @@
   "seed": 515151,
   "runName": "opal-war-certification",
   "backend": {
-    "baseUrl": "http://127.0.0.1:3000",
-    "controlPlaneUrl": "http://127.0.0.1:3001",
-    "flutterBridgeUrl": "http://127.0.0.1:4000"
+    "baseUrl": "",
+    "controlPlaneUrl": "",
+    "flutterBridgeUrl": ""
   },
   "database": {
     "enabled": true,

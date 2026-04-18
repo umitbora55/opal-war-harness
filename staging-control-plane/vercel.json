@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/health", "destination": "/api/health" },
+    { "source": "/war-harness", "destination": "/api/war-harness" },
+    { "source": "/war-harness/:path*", "destination": "/api/war-harness/:path*" }
+  ]
+}

@@ -12,7 +12,7 @@ export interface ControlPlaneAdapter {
   cleanup(request: ControlPlaneActionRequest): Promise<{ accepted: boolean; synthetic: boolean; cleaned: boolean }>;
 }
 
-export function createControlPlaneAdapter(url: string): ControlPlaneAdapter {
+export function createControlPlaneAdapter(url: string, secret?: string): ControlPlaneAdapter {
   async function fetchWithTimeout(input: string, init: RequestInit = {}, timeoutMs = 10_000) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(new Error('timeout')), timeoutMs);
@@ -33,7 +33,10 @@ export function createControlPlaneAdapter(url: string): ControlPlaneAdapter {
         return { ok: true, synthetic: true };
       }
       const response = await fetchWithTimeout(`${url}/war-harness/ping`, {
-        headers: { 'x-test-mode': 'true' },
+        headers: {
+          'x-test-mode': 'true',
+          ...(secret ? { 'x-war-harness-secret': secret } : {}),
+        },
       });
       if (!response.ok) {
         throw new Error(`Control-plane ping failed: ${response.status} ${response.statusText}`);
@@ -46,7 +49,11 @@ export function createControlPlaneAdapter(url: string): ControlPlaneAdapter {
       }
       const response = await fetchWithTimeout(`${url}/war-harness/bootstrap`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-test-mode': 'true' },
+        headers: {
+          'content-type': 'application/json',
+          'x-test-mode': 'true',
+          ...(secret ? { 'x-war-harness-secret': secret } : {}),
+        },
         body: JSON.stringify(request),
       });
       if (!response.ok) {
@@ -60,7 +67,11 @@ export function createControlPlaneAdapter(url: string): ControlPlaneAdapter {
       }
       const response = await fetchWithTimeout(`${url}/war-harness/cleanup`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-test-mode': 'true' },
+        headers: {
+          'content-type': 'application/json',
+          'x-test-mode': 'true',
+          ...(secret ? { 'x-war-harness-secret': secret } : {}),
+        },
         body: JSON.stringify(request),
       });
       if (!response.ok) {

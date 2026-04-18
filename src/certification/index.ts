@@ -10,4 +10,5 @@ export * from './war-harness.js';
 export * from './decertify.js';
 export * from './validator.js';
 export * from './decision-engine.js';
+export * from './preflight.js';
 export * from './cli.js';

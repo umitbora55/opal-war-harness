@@ -22,6 +22,15 @@ export interface EnvironmentOverrides {
   controlSurfacePort?: number;
 }
 
+function firstNonEmpty(...values: Array<string | undefined>): string {
+  for (const value of values) {
+    if (typeof value === 'string' && value.trim().length > 0) {
+      return value;
+    }
+  }
+  return '';
+}
+
 export async function resolveHarnessConfig(
   overrides: EnvironmentOverrides = {},
 ): Promise<HarnessConfig> {
@@ -36,21 +45,24 @@ export async function resolveHarnessConfig(
     seed: overrides.seed ?? fileConfig.seed ?? Number(env.WAR_SEED ?? '424242'),
     runName: overrides.runName ?? fileConfig.runName ?? env.WAR_RUN_NAME ?? 'opal-war-run',
     backend: {
-      baseUrl:
-        overrides.backendBaseUrl ??
-        fileConfig.backend?.baseUrl ??
-        env.WAR_BACKEND_BASE_URL ??
-        '',
-      controlPlaneUrl:
-        overrides.controlPlaneUrl ??
-        fileConfig.backend?.controlPlaneUrl ??
-        env.WAR_CONTROL_PLANE_URL ??
-        '',
-      flutterBridgeUrl:
-        overrides.flutterBridgeUrl ??
-        fileConfig.backend?.flutterBridgeUrl ??
-        env.WAR_FLUTTER_BRIDGE_URL ??
-        '',
+      baseUrl: firstNonEmpty(
+        overrides.backendBaseUrl,
+        env.WAR_BACKEND_BASE_URL,
+        env.WAR_STAGING_BASE_URL,
+        fileConfig.backend?.baseUrl,
+      ),
+      controlPlaneUrl: firstNonEmpty(
+        overrides.controlPlaneUrl,
+        env.WAR_CONTROL_PLANE_URL,
+        env.WAR_STAGING_BASE_URL,
+        fileConfig.backend?.controlPlaneUrl,
+      ),
+      flutterBridgeUrl: firstNonEmpty(
+        overrides.flutterBridgeUrl,
+        env.WAR_FLUTTER_BRIDGE_URL,
+        env.WAR_STAGING_BASE_URL,
+        fileConfig.backend?.flutterBridgeUrl,
+      ),
     },
     limits: {
       userCount: overrides.userCount ?? fileConfig.limits?.userCount ?? 100,

@@ -4,6 +4,7 @@ import { loadCertificationPack } from './loader.js';
 import { validateCertificationPack } from './validator.js';
 import { evaluateCertificationDecision } from './decision-engine.js';
 import { resolveCertificationPaths } from './paths.js';
+import { runCertificationPreflight } from './preflight.js';
 
 function parseArgs(argv: string[]) {
   const result: Record<string, string | boolean> = {};
@@ -41,6 +42,19 @@ export async function runCertificationCli(argv: string[]): Promise<number> {
     return issues.some((item) => item.severity === 'error') ? 1 : 0;
   }
 
+  if (subcommand === 'preflight') {
+    const result = await runCertificationPreflight({
+      rootDir,
+      controlPlaneUrl: typeof args.controlPlaneUrl === 'string' ? args.controlPlaneUrl : undefined,
+      flutterBridgeUrl: typeof args.flutterBridgeUrl === 'string' ? args.flutterBridgeUrl : undefined,
+      secret: typeof args.secret === 'string' ? args.secret : undefined,
+      outputDir: typeof args.out === 'string' ? args.out : undefined,
+    });
+    await persist('certification-preflight', result, typeof args.out === 'string' ? args.out : undefined);
+    console.log(JSON.stringify(result, null, 2));
+    return result.ok ? 0 : 1;
+  }
+
   const decision = await evaluateCertificationDecision({
     rootDir,
     gateId: typeof args.gate === 'string' ? args.gate : typeof args.gateId === 'string' ? args.gateId : 'pre-release-cert',
@@ -67,4 +81,3 @@ export async function runCertificationCli(argv: string[]): Promise<number> {
   console.log(JSON.stringify(payload, null, 2));
   return decision.allowed ? 0 : 1;
 }
-

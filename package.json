@@ -17,6 +17,7 @@
     "replay": "tsx src/cli/opal-war.ts replay",
     "certify": "tsx src/cli/opal-war.ts certify",
     "certification:validate": "tsx src/cli/opal-war.ts certification validate",
+    "certification:preflight": "tsx src/cli/opal-war.ts certification preflight",
     "certification:check": "tsx src/cli/opal-war.ts certification check",
     "certification:gate": "tsx src/cli/opal-war.ts certification gate",
     "db:migrate": "tsx src/db/migrate.ts",

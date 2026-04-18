@@ -108,6 +108,7 @@ export async function runHarness(config: HarnessConfig): Promise<RunArtifacts> {
   const telemetry = createTelemetryCollector(context);
   const controlPlane = createControlPlaneAdapter(
     config.backend.controlPlaneUrl || config.backend.baseUrl,
+    config.controlSurface.secret,
   );
 
   const personaRegistry = loadPersonaRegistry();

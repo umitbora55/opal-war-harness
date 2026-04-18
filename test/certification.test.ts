@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
 import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -9,8 +10,10 @@ import { validateCertificationPack } from '../src/certification/validator.js';
 import { evaluateCertificationDecision } from '../src/certification/decision-engine.js';
 import { transitionFeatureCertification } from '../src/certification/state-machine.js';
 import { decertifyFeature } from '../src/certification/decertify.js';
+import { runCertificationPreflight } from '../src/certification/preflight.js';
+import { resolveHarnessConfig } from '../src/core/environment-resolver.js';
 import type { FeatureCertificationRecord } from '../src/certification/types.js';
-import { spawnNodeScript } from './helpers/temp-process.js';
+import { findFreePort, spawnNodeScript } from './helpers/temp-process.js';
 
 const repoRoot = '/Users/umitboragunaydin/Projects/opal-war-harness';
 
@@ -376,6 +379,89 @@ test('cli certification validate and gate contracts are enforced', async () => {
     });
     assert.equal(gateExit, 0);
     assert.match(gateOutput, /\"verdict\": \"CERTIFIED\"/);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('release config prefers env-driven staging urls over localhost defaults', async (t) => {
+  const original = {
+    WAR_BACKEND_BASE_URL: process.env.WAR_BACKEND_BASE_URL,
+    WAR_CONTROL_PLANE_URL: process.env.WAR_CONTROL_PLANE_URL,
+    WAR_FLUTTER_BRIDGE_URL: process.env.WAR_FLUTTER_BRIDGE_URL,
+    WAR_STAGING_BASE_URL: process.env.WAR_STAGING_BASE_URL,
+  };
+  process.env.WAR_BACKEND_BASE_URL = 'https://backend.example.test';
+  process.env.WAR_CONTROL_PLANE_URL = 'https://control.example.test';
+  process.env.WAR_FLUTTER_BRIDGE_URL = 'https://bridge.example.test';
+  process.env.WAR_STAGING_BASE_URL = 'https://staging.example.test';
+  t.after(() => {
+    process.env.WAR_BACKEND_BASE_URL = original.WAR_BACKEND_BASE_URL;
+    process.env.WAR_CONTROL_PLANE_URL = original.WAR_CONTROL_PLANE_URL;
+    process.env.WAR_FLUTTER_BRIDGE_URL = original.WAR_FLUTTER_BRIDGE_URL;
+    process.env.WAR_STAGING_BASE_URL = original.WAR_STAGING_BASE_URL;
+  });
+
+  const config = await resolveHarnessConfig({ configPath: './configs/release.json' });
+  assert.equal(config.backend.baseUrl, 'https://backend.example.test');
+  assert.equal(config.backend.controlPlaneUrl, 'https://control.example.test');
+  assert.equal(config.backend.flutterBridgeUrl, 'https://bridge.example.test');
+});
+
+test('certification preflight succeeds against a staging-like public surface', async (t) => {
+  const port = await findFreePort();
+  const server = createServer((req, res) => {
+    const url = req.url ?? '/';
+    const method = req.method ?? 'GET';
+    const testMode = req.headers['x-test-mode'] === 'true';
+    const secret = req.headers['x-war-harness-secret'];
+    if (!(testMode || secret === 'mirror-secret')) {
+      res.writeHead(403, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'forbidden' }));
+      return;
+    }
+
+    if (method === 'GET' && url === '/war-harness/ping') {
+      res.writeHead(200, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, synthetic: true }));
+      return;
+    }
+    if (method === 'POST' && url === '/war-harness/bootstrap') {
+      res.writeHead(200, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ accepted: true, synthetic: true, tenantId: 'tenant-1', bootstrapToken: 'token-1' }));
+      return;
+    }
+    if (method === 'POST' && url === '/war-harness/cleanup') {
+      res.writeHead(200, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ accepted: true, synthetic: true, cleaned: true }));
+      return;
+    }
+    if (method === 'POST' && url === '/war-harness') {
+      res.writeHead(200, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ acknowledged: true, synthetic: true }));
+      return;
+    }
+
+    res.writeHead(404, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ ok: false, error: 'not_found' }));
+  });
+
+  await new Promise<void>((resolve) => server.listen(port, '127.0.0.1', resolve));
+  t.after(async () => {
+    await new Promise<void>((resolve) => server.close(() => resolve()));
+  });
+
+  const root = await makeTempRoot('opal-war-preflight-');
+  try {
+    const result = await runCertificationPreflight({
+      controlPlaneUrl: `http://127.0.0.1:${port}`,
+      flutterBridgeUrl: `http://127.0.0.1:${port}`,
+      secret: 'mirror-secret',
+      outputDir: join(root, 'reports/certification'),
+    });
+    assert.equal(result.ok, true);
+    assert.ok(result.checks.every((check) => check.ok));
+    assert.ok(await readFile(join(root, 'reports/certification', 'preflight.json'), 'utf8'));
   } finally {
     await rm(root, { recursive: true, force: true });
   }
