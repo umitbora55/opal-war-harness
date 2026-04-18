@@ -51,7 +51,7 @@ export async function runCertificationPreflight(
   const secret = options.secret ?? config.controlSurface.secret;
   const controlPlane = createControlPlaneAdapter(controlPlaneUrl, secret);
   const flutterBridgeUrl = config.backend.flutterBridgeUrl;
-  const flutterBridge = flutterBridgeUrl ? createFlutterBridgeAdapter(flutterBridgeUrl) : null;
+  const flutterBridge = flutterBridgeUrl ? createFlutterBridgeAdapter(flutterBridgeUrl, secret) : null;
   const checks: PreflightCheckResult['checks'] = [];
 
   try {

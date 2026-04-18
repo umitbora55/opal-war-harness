@@ -9,16 +9,20 @@ export interface FlutterBridgeAdapter {
   send(request: FlutterBridgeRequest): Promise<{ acknowledged: boolean; synthetic: boolean }>;
 }
 
-export function createFlutterBridgeAdapter(bridgeUrl: string): FlutterBridgeAdapter {
+export function createFlutterBridgeAdapter(bridgeUrl: string, secret?: string): FlutterBridgeAdapter {
   return {
     bridgeUrl,
     async send(request) {
       if (!bridgeUrl) {
         return { acknowledged: true, synthetic: true };
       }
+      const headers: Record<string, string> = { 'content-type': 'application/json' };
+      if (secret) {
+        headers['x-war-harness-secret'] = secret;
+      }
       const response = await fetch(`${bridgeUrl}/war-harness`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers,
         body: JSON.stringify(request),
       });
       if (!response.ok) {
