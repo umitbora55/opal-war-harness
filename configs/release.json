@@ -3,6 +3,17 @@
   "environment": "http",
   "seed": 515151,
   "runName": "opal-war-certification",
+  "certificationScenarioIds": [
+    "CORE-HAPPY-001",
+    "COLDSTART-001",
+    "TRUST-ATTACK-001",
+    "MSG-DRIFT-001",
+    "MARKET-DISTORT-001",
+    "IRL-RISK-001",
+    "PREMIUM-RISK-001",
+    "LOCALIZATION-001",
+    "RESILIENCY-001"
+  ],
   "backend": {
     "baseUrl": "",
     "controlPlaneUrl": "",

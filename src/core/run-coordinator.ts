@@ -130,7 +130,9 @@ export async function runHarness(config: HarnessConfig): Promise<RunArtifacts> {
         : config.mode === 'replay'
           ? ['CORE-HAPPY-001']
           : config.mode === 'certify'
-            ? scenarioRegistry.map((item) => item.id)
+            ? (config.certificationScenarioIds?.length
+                ? config.certificationScenarioIds
+                : scenarioRegistry.map((item) => item.id))
             : scenarioRegistry.map((item) => item.id);
 
   const selectedScenarios = scenarioRegistry.filter((item) =>

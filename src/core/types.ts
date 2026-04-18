@@ -46,6 +46,7 @@ export interface HarnessConfig {
   environment: EnvironmentMode;
   seed: number;
   runName: string;
+  certificationScenarioIds?: string[];
   database: {
     enabled: boolean;
     url: string;

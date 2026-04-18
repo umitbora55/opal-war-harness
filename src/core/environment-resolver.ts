@@ -44,6 +44,7 @@ export async function resolveHarnessConfig(
       overrides.environment ?? (fileConfig.environment as EnvironmentMode) ?? 'local',
     seed: overrides.seed ?? fileConfig.seed ?? Number(env.WAR_SEED ?? '424242'),
     runName: overrides.runName ?? fileConfig.runName ?? env.WAR_RUN_NAME ?? 'opal-war-run',
+    certificationScenarioIds: fileConfig.certificationScenarioIds ?? [],
     backend: {
       baseUrl: firstNonEmpty(
         overrides.backendBaseUrl,
