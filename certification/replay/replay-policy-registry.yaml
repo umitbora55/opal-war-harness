@@ -1,0 +1,36 @@
+version: 1.0.0
+updated_at: "2026-04-18T00:00:00.000Z"
+replay:
+  bundle_artifact_name: replay-bundle.json
+  required_fields:
+    - bundleId
+    - bundleHash
+    - reportHash
+    - createdAt
+    - actions
+    - scenarios
+    - personas
+  retention: P365D
+  reproducibility_policy: critical-failures-must-replay
+  compare_fields:
+    - bundleHash
+    - reportHash
+    - context.configVersion
+    - config.seed
+  required_for_anomalies:
+    - AUTH_BYPASS
+    - TRUST_HOLD_BYPASS
+    - DUPLICATE_STATE
+    - INVALID_TRANSITION
+    - STALE_MEMORY_DECISION
+    - SUPPRESSION_MISS
+    - COOLDOWN_BYPASS
+    - PAYWALL_MISTIMING
+    - ENTITLEMENT_DRIFT
+    - UNSAFE_IRL_PROGRESSION
+    - FAKE_READINESS
+    - LOCALIZATION_MISMATCH
+    - FAIRNESS_BREACH
+    - BUDGET_OVERSPEND
+    - AUDIT_MISSING
+    - REPLAY_MISMATCH

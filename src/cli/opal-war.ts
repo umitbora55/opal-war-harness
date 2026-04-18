@@ -5,8 +5,9 @@ import { resolveHarnessConfig } from '../core/environment-resolver.js';
 import { runHarness } from '../core/run-coordinator.js';
 import { compareReplayBundles, replayBundle } from '../replay/replay-runner.js';
 import { runIdFromSeed } from '../core/hash.js';
+import { runCertificationCli } from '../certification/cli.js';
 
-type Command = 'smoke' | 'behavioral' | 'load' | 'chaos' | 'replay' | 'certify' | 'shadow';
+type Command = 'smoke' | 'behavioral' | 'load' | 'chaos' | 'replay' | 'certify' | 'shadow' | 'certification';
 
 function parseArgs(argv: string[]) {
   const result: Record<string, string | boolean> = {};
@@ -40,6 +41,11 @@ async function main() {
   const [commandArg = 'smoke'] = process.argv.slice(2);
   const command = commandArg as Command;
   const args = parseArgs(process.argv.slice(3));
+
+  if (command === 'certification') {
+    process.exitCode = await runCertificationCli(process.argv.slice(3));
+    return;
+  }
 
   const config = await resolveHarnessConfig({
     mode: command === 'replay' ? 'replay' : command === 'certify' ? 'certify' : command,

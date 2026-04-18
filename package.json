@@ -16,12 +16,17 @@
     "behavioral": "tsx src/cli/opal-war.ts behavioral",
     "replay": "tsx src/cli/opal-war.ts replay",
     "certify": "tsx src/cli/opal-war.ts certify",
+    "certification:validate": "tsx src/cli/opal-war.ts certification validate",
+    "certification:check": "tsx src/cli/opal-war.ts certification check",
+    "certification:gate": "tsx src/cli/opal-war.ts certification gate",
     "db:migrate": "tsx src/db/migrate.ts",
     "export:provider": "tsx src/metrics/export-provider.ts",
     "test": "node --import tsx --test --test-timeout=120000 test/**/*.test.ts",
     "lint": "tsc -p tsconfig.json --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "yaml": "^2.8.3"
+  },
   "devDependencies": {
     "@types/node": "^22.15.18",
     "@types/pg": "^8.15.5",

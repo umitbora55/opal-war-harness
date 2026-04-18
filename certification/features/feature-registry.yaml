@@ -1,0 +1,493 @@
+version: 1.0.0
+updated_at: "2026-04-18T00:00:00.000Z"
+features:
+  - feature_id: auth.session
+    family: auth
+    display_name: Authentication and Session Control
+    owner_team: backend-platform
+    description: Access control, session validity, and operator-safe auth flow.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-AUTH-001
+      - ANOM-ADM-001
+      - ANOM-STATE-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+      - post-deploy-verify
+  - feature_id: onboarding.flow
+    family: onboarding
+    display_name: Onboarding Flow
+    owner_team: growth-platform
+    description: Stepwise activation and resume-safe onboarding progression.
+    risk_tier: high
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: false
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-STATE-001
+      - ANOM-EVT-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: profile.surface
+    family: profile
+    display_name: Profile Surface
+    owner_team: profile-platform
+    description: Profile edits, completeness, and preference integrity.
+    risk_tier: high
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: false
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-STATE-001
+      - ANOM-EVT-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: photo.pipeline
+    family: photo
+    display_name: Photo Upload and Moderation Pipeline
+    owner_team: media-trust
+    description: Photo ingestion, moderation, and visibility gating.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - trace
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-AUTH-001
+      - ANOM-ADM-001
+      - ANOM-MOD-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: verification.identity
+    family: verification
+    display_name: Verification and Identity Assurance
+    owner_team: trust-safety
+    description: Identity verification, manual review, and hold propagation.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - trace
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-STATE-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+      - rollback-gate
+  - feature_id: swipe.discovery
+    family: swipe
+    display_name: Swipe and Discovery
+    owner_team: marketplace-control-tower
+    description: Candidate discovery, exposure, and user choice.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: false
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-FAIR-001
+      - ANOM-MATCH-001
+      - ANOM-MATCH-002
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: ranking.fairness
+    family: ranking
+    display_name: Ranking and Fairness
+    owner_team: marketplace-control-tower
+    description: Exposure ordering, balance, and concentration protection.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: false
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+      - trace
+    blocker_anomalies:
+      - ANOM-FAIR-001
+      - ANOM-SWIPE-001
+      - ANOM-SWIPE-002
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: match.creation
+    family: match
+    display_name: Match Creation
+    owner_team: messaging-platform
+    description: Mutual interest to durable match creation.
+    risk_tier: high
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: false
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-MATCH-001
+      - ANOM-MATCH-002
+      - ANOM-EVT-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: messaging.delivery
+    family: messaging
+    display_name: Messaging Delivery
+    owner_team: messaging-platform
+    description: Message send, delivery, reply, and read coherence.
+    risk_tier: high
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: false
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - trace
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-MSG-001
+      - ANOM-MSG-002
+      - ANOM-MSG-003
+      - ANOM-EVT-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: notifications.realtime
+    family: notifications
+    display_name: Notifications and Realtime
+    owner_team: realtime-platform
+    description: Push, socket, and realtime state synchronization.
+    risk_tier: medium
+    release_blocking: false
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: false
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - trace
+    blocker_anomalies:
+      - ANOM-NOTIF-001
+      - ANOM-EVT-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+  - feature_id: orchestration.brain
+    family: orchestration
+    display_name: Cross-Surface Orchestration Brain
+    owner_team: orchestration-platform
+    description: Primary decision routing, suppression, and intervention selection.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - trace
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-ORCH-001
+      - ANOM-ORCH-002
+      - ANOM-CD-001
+      - ANOM-SUP-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+      - canary-gate
+  - feature_id: suppression.cooldown
+    family: suppression
+    display_name: Suppression and Cooldown
+    owner_team: orchestration-platform
+    description: Action throttling, cooldown windows, and suppression safety.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - trace
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-SUP-001
+      - ANOM-CD-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: trust.safety
+    family: trust
+    display_name: Trust and Safety
+    owner_team: trust-safety
+    description: Holds, blocks, report handling, and safe progression control.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - trace
+      - synthetic_behavioral
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+      - rollback-gate
+  - feature_id: irl.progression
+    family: irl
+    display_name: IRL Progression
+    owner_team: irl-outcome
+    description: Readiness, planning, meeting, and cancellation safety.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: locale
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - localization
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-TRUST-001
+      - ANOM-LOC-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+      - canary-gate
+  - feature_id: outcome.truth
+    family: outcome
+    display_name: Outcome Truth
+    owner_team: irl-outcome
+    description: Truth layer for whether meetings and outcomes actually happened.
+    risk_tier: high
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: locale
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - replay_bundle
+      - localization
+    blocker_anomalies:
+      - ANOM-LOC-001
+      - ANOM-PREM-003
+    gate_ids:
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: premium.entitlements
+    family: premium
+    display_name: Premium Entitlements and Paywall
+    owner_team: monetization-platform
+    description: Entitlement state, paywall timing, and visibility effects.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-PREM-001
+      - ANOM-PREM-002
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: localization.core
+    family: localization
+    display_name: Localization and Country Policy
+    owner_team: localization-ops
+    description: Country-specific pacing, copy, moderation, and policy tuning.
+    risk_tier: high
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: locale
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - localization
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-LOC-001
+      - ANOM-NOTIF-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+  - feature_id: operator.control-plane
+    family: operator
+    display_name: Operator and Control Plane
+    owner_team: release-governance
+    description: Administrative control, bootstrap, cleanup, and policy mutation.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - trace
+      - release_gate
+    blocker_anomalies:
+      - ANOM-ADM-001
+      - ANOM-AUTH-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+      - rollback-gate
+  - feature_id: marketplace.control-tower
+    family: marketplace
+    display_name: Marketplace Control Tower
+    owner_team: marketplace-control-tower
+    description: Exposure fairness, liquidity, concentration, and city health.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: locale
+    trust_critical: false
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - trace
+      - replay_bundle
+      - localization
+    blocker_anomalies:
+      - ANOM-FAIR-001
+      - ANOM-LOC-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+      - canary-gate
+  - feature_id: release.governance
+    family: release
+    display_name: Release Governance and Rollback
+    owner_team: release-governance
+    description: Certification gates, deployment control, and rollback safety.
+    risk_tier: critical
+    release_blocking: true
+    war_harness_required: true
+    locale_scope: global
+    trust_critical: true
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - release_gate
+      - replay_bundle
+    blocker_anomalies:
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    gate_ids:
+      - pr-gate
+      - nightly-gate
+      - pre-release-cert
+      - canary-gate
+      - post-deploy-verify
+      - rollback-gate

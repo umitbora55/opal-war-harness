@@ -1,0 +1,211 @@
+version: 1.0.0
+updated_at: "2026-04-18T00:00:00.000Z"
+gates:
+  - gate_id: pr-gate
+    purpose: Pull request safety and contract validation.
+    covered_feature_families:
+      - auth
+      - onboarding
+      - profile
+      - photo
+      - verification
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - notifications
+      - orchestration
+      - suppression
+      - trust
+      - premium
+      - marketplace
+      - operator
+      - release
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - replay_bundle
+    blocker_severities:
+      - critical
+      - high
+    advisory_severities:
+      - medium
+    mandatory_artifacts:
+      - report.json
+      - replay-bundle.json
+      - certification-decision.json
+    override_policy_ref: override-policy-registry.yaml
+    override_allowed: true
+    override_ttl: PT24H
+    audit_required: true
+    minimum_required_state: contract-passing
+  - gate_id: nightly-gate
+    purpose: Nightly behavioral certification across core surfaces.
+    covered_feature_families:
+      - auth
+      - onboarding
+      - profile
+      - photo
+      - verification
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - notifications
+      - orchestration
+      - suppression
+      - trust
+      - irl
+      - outcome
+      - premium
+      - localization
+      - marketplace
+      - operator
+      - release
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    blocker_severities:
+      - critical
+      - high
+    advisory_severities:
+      - medium
+    mandatory_artifacts:
+      - report.json
+      - replay-bundle.json
+      - anomaly-ledger.json
+      - certification-decision.json
+    override_policy_ref: override-policy-registry.yaml
+    override_allowed: false
+    override_ttl: null
+    audit_required: true
+    minimum_required_state: behaviorally-passing
+  - gate_id: pre-release-cert
+    purpose: Release certification for production-ready features.
+    covered_feature_families:
+      - auth
+      - onboarding
+      - profile
+      - photo
+      - verification
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - orchestration
+      - suppression
+      - trust
+      - irl
+      - outcome
+      - premium
+      - localization
+      - marketplace
+      - operator
+      - release
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+      - release_gate
+    blocker_severities:
+      - critical
+      - high
+    advisory_severities:
+      - medium
+    mandatory_artifacts:
+      - report.json
+      - replay-bundle.json
+      - release-verdict.json
+      - certification-decision.json
+    override_policy_ref: override-policy-registry.yaml
+    override_allowed: false
+    override_ttl: null
+    audit_required: true
+    minimum_required_state: release-certified
+  - gate_id: canary-gate
+    purpose: Small-slice rollout verification.
+    covered_feature_families:
+      - trust
+      - irl
+      - premium
+      - marketplace
+      - orchestration
+      - localization
+    required_evidence:
+      - runtime
+      - trace
+      - replay_bundle
+      - localization
+    blocker_severities:
+      - critical
+    advisory_severities:
+      - high
+      - medium
+    mandatory_artifacts:
+      - canary-verdict.json
+      - report.json
+      - replay-bundle.json
+    override_policy_ref: override-policy-registry.yaml
+    override_allowed: true
+    override_ttl: PT1H
+    audit_required: true
+    minimum_required_state: behaviorally-passing
+  - gate_id: post-deploy-verify
+    purpose: Immediate post-deploy verification.
+    covered_feature_families:
+      - auth
+      - trust
+      - premium
+      - messaging
+      - notifications
+      - orchestration
+      - marketplace
+    required_evidence:
+      - runtime
+      - trace
+      - replay_bundle
+    blocker_severities:
+      - critical
+      - high
+    advisory_severities:
+      - medium
+    mandatory_artifacts:
+      - report.json
+      - replay-bundle.json
+      - certification-decision.json
+    override_policy_ref: override-policy-registry.yaml
+    override_allowed: false
+    override_ttl: null
+    audit_required: true
+    minimum_required_state: release-certified
+  - gate_id: rollback-gate
+    purpose: Validate rollback safety and state recovery.
+    covered_feature_families:
+      - release
+      - operator
+      - trust
+      - auth
+      - verification
+    required_evidence:
+      - runtime
+      - audit
+      - replay_bundle
+    blocker_severities:
+      - critical
+      - high
+    advisory_severities:
+      - medium
+    mandatory_artifacts:
+      - rollback-verdict.json
+      - audit-trail.json
+    override_policy_ref: override-policy-registry.yaml
+    override_allowed: false
+    override_ttl: null
+    audit_required: true
+    minimum_required_state: release-certified

@@ -1,0 +1,56 @@
+version: 1.0.0
+updated_at: "2026-04-18T00:00:00.000Z"
+release_gates:
+  - stage: pr
+    gate_id: pr-gate
+    required_artifacts:
+      - report.json
+      - replay-bundle.json
+      - certification-decision.json
+    blocking_on:
+      - critical
+      - high
+  - stage: nightly
+    gate_id: nightly-gate
+    required_artifacts:
+      - report.json
+      - replay-bundle.json
+      - anomaly-ledger.json
+      - certification-decision.json
+    blocking_on:
+      - critical
+      - high
+  - stage: pre-release
+    gate_id: pre-release-cert
+    required_artifacts:
+      - report.json
+      - replay-bundle.json
+      - release-verdict.json
+      - certification-decision.json
+    blocking_on:
+      - critical
+      - high
+  - stage: canary
+    gate_id: canary-gate
+    required_artifacts:
+      - report.json
+      - replay-bundle.json
+      - canary-verdict.json
+    blocking_on:
+      - critical
+  - stage: post-deploy
+    gate_id: post-deploy-verify
+    required_artifacts:
+      - report.json
+      - replay-bundle.json
+      - certification-decision.json
+    blocking_on:
+      - critical
+      - high
+  - stage: rollback
+    gate_id: rollback-gate
+    required_artifacts:
+      - rollback-verdict.json
+      - audit-trail.json
+    blocking_on:
+      - critical

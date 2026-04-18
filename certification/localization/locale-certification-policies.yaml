@@ -1,0 +1,45 @@
+version: 1.0.0
+updated_at: "2026-04-18T00:00:00.000Z"
+locales:
+  - locale_id: TR-ISTANBUL
+    country: TR
+    city: Istanbul
+    timezone: Europe/Istanbul
+    global_invariants:
+      - ANOM-AUTH-001
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    thresholds:
+      marketplace_concentration_p95: 3.0
+      reply_to_irl_intent_p95_minutes: 180
+      trust_false_progression_rate: 0
+    release_blockers:
+      - ANOM-LOC-001
+      - ANOM-PREM-003
+    evidence_types:
+      - localization
+      - synthetic_behavioral
+      - replay_bundle
+  - locale_id: DE-BERLIN
+    country: DE
+    city: Berlin
+    timezone: Europe/Berlin
+    global_invariants:
+      - ANOM-AUTH-001
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    thresholds:
+      marketplace_concentration_p95: 2.8
+      reply_to_irl_intent_p95_minutes: 210
+      trust_false_progression_rate: 0
+    release_blockers:
+      - ANOM-LOC-001
+      - ANOM-PREM-003
+    evidence_types:
+      - localization
+      - synthetic_behavioral
+      - replay_bundle

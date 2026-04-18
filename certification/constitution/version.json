@@ -1,0 +1,15 @@
+{
+  "constitution_name": "The Opal Feature Certification Constitution Enforcement Pack",
+  "constitution_version": "1.0.0",
+  "constitution_hash": "sha256:9c8a6a3ce3b6b9c8d4a6d89c5b7d6b9e8d1f0b6f0b3d5e6a7c8d9e0f1a2b3c4d",
+  "schema_version": "1.0.0",
+  "effective_at": "2026-04-18T00:00:00.000Z",
+  "updated_at": "2026-04-18T00:00:00.000Z",
+  "owners": [
+    "release-governance",
+    "platform-engineering",
+    "staff-sdet",
+    "trust-safety"
+  ],
+  "source_of_truth": "certification/constitution/version.json"
+}

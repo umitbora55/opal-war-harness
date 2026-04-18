@@ -1,0 +1,153 @@
+version: 1.0.0
+updated_at: "2026-04-18T00:00:00.000Z"
+anomalies:
+  - anomaly_code: ANOM-AUTH-001
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: auth-security
+  - anomaly_code: ANOM-STATE-001
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: state-machine
+  - anomaly_code: ANOM-MOD-001
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: trust-safety
+  - anomaly_code: ANOM-SWIPE-001
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: marketplace
+  - anomaly_code: ANOM-SWIPE-002
+    severity: medium
+    release_effect: advisory
+    replay_required: false
+    decertification_trigger: false
+    owner_domain: marketplace
+  - anomaly_code: ANOM-MATCH-001
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: messaging-platform
+  - anomaly_code: ANOM-MATCH-002
+    severity: medium
+    release_effect: advisory
+    replay_required: false
+    decertification_trigger: false
+    owner_domain: messaging-platform
+  - anomaly_code: ANOM-MSG-001
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: messaging-platform
+  - anomaly_code: ANOM-MSG-002
+    severity: medium
+    release_effect: advisory
+    replay_required: false
+    decertification_trigger: false
+    owner_domain: messaging-platform
+  - anomaly_code: ANOM-MSG-003
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: messaging-platform
+  - anomaly_code: ANOM-CD-001
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: orchestration
+  - anomaly_code: ANOM-SUP-001
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: orchestration
+  - anomaly_code: ANOM-ORCH-001
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: orchestration
+  - anomaly_code: ANOM-ORCH-002
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: orchestration
+  - anomaly_code: ANOM-TRUST-001
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: trust-safety
+  - anomaly_code: ANOM-TRUST-002
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: trust-safety
+  - anomaly_code: ANOM-ADM-001
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: governance
+  - anomaly_code: ANOM-PREM-001
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: monetization
+  - anomaly_code: ANOM-PREM-002
+    severity: medium
+    release_effect: advisory
+    replay_required: false
+    decertification_trigger: false
+    owner_domain: monetization
+  - anomaly_code: ANOM-PREM-003
+    severity: medium
+    release_effect: advisory
+    replay_required: false
+    decertification_trigger: false
+    owner_domain: monetization
+  - anomaly_code: ANOM-LOC-001
+    severity: high
+    release_effect: block_locale_rollout
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: localization
+  - anomaly_code: ANOM-NOTIF-001
+    severity: medium
+    release_effect: advisory
+    replay_required: false
+    decertification_trigger: false
+    owner_domain: realtime
+  - anomaly_code: ANOM-EVT-001
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: sdet
+  - anomaly_code: ANOM-FAIR-001
+    severity: critical
+    release_effect: hard_block
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: marketplace
+  - anomaly_code: ANOM-QUEUE-001
+    severity: high
+    release_effect: block_release_cert
+    replay_required: true
+    decertification_trigger: true
+    owner_domain: queue

@@ -1,5 +1,6 @@
 node_modules/
 dist/
 reports/cli/
+reports/certification/
 reports/runs/
 *.log

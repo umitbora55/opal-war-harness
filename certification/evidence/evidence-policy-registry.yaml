@@ -1,0 +1,291 @@
+version: 1.0.0
+updated_at: "2026-04-18T00:00:00.000Z"
+evidence:
+  - evidence_type: build
+    canonical_artifact_name: build-proof.json
+    schema:
+      required_fields:
+        - build_id
+        - status
+        - timestamp
+      optional_fields:
+        - commit_sha
+        - branch
+    retention: P180D
+    staleness_ttl: P30D
+    mandatory_for_feature_families:
+      - auth
+      - onboarding
+      - profile
+      - photo
+      - verification
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - notifications
+      - orchestration
+      - suppression
+      - trust
+      - irl
+      - outcome
+      - premium
+      - localization
+      - marketplace
+      - operator
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: contract
+    canonical_artifact_name: contract-proof.json
+    schema:
+      required_fields:
+        - artifact
+        - status
+        - timestamp
+      optional_fields:
+        - diff
+    retention: P180D
+    staleness_ttl: P30D
+    mandatory_for_feature_families:
+      - auth
+      - onboarding
+      - profile
+      - photo
+      - verification
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - notifications
+      - orchestration
+      - suppression
+      - trust
+      - irl
+      - outcome
+      - premium
+      - localization
+      - marketplace
+      - operator
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: runtime
+    canonical_artifact_name: runtime-proof.json
+    schema:
+      required_fields:
+        - url
+        - status
+        - timestamp
+      optional_fields:
+        - body
+    retention: P90D
+    staleness_ttl: P14D
+    mandatory_for_feature_families:
+      - auth
+      - onboarding
+      - photo
+      - verification
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - notifications
+      - orchestration
+      - suppression
+      - trust
+      - irl
+      - outcome
+      - premium
+      - localization
+      - marketplace
+      - operator
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: db_side_effect
+    canonical_artifact_name: db-proof.json
+    schema:
+      required_fields:
+        - tables
+        - timestamp
+      optional_fields:
+        - row_counts
+    retention: P90D
+    staleness_ttl: P14D
+    mandatory_for_feature_families:
+      - auth
+      - onboarding
+      - profile
+      - photo
+      - verification
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - trust
+      - irl
+      - premium
+      - marketplace
+      - operator
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: audit
+    canonical_artifact_name: audit-trail.json
+    schema:
+      required_fields:
+        - actor
+        - action
+        - reason
+        - timestamp
+      optional_fields:
+        - before
+        - after
+    retention: P365D
+    staleness_ttl: P30D
+    mandatory_for_feature_families:
+      - photo
+      - verification
+      - trust
+      - operator
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: trace
+    canonical_artifact_name: trace-proof.json
+    schema:
+      required_fields:
+        - trace_id
+        - spans
+        - timestamp
+      optional_fields:
+        - duration_ms
+    retention: P90D
+    staleness_ttl: P14D
+    mandatory_for_feature_families:
+      - ranking
+      - messaging
+      - notifications
+      - orchestration
+      - suppression
+      - trust
+      - irl
+      - marketplace
+      - operator
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: synthetic_behavioral
+    canonical_artifact_name: war-harness-report.json
+    schema:
+      required_fields:
+        - run
+        - verdict
+        - counts
+        - featureMatrix
+        - replayBundlePath
+      optional_fields:
+        - config
+        - reportHash
+    retention: P180D
+    staleness_ttl: P14D
+    mandatory_for_feature_families:
+      - onboarding
+      - profile
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - orchestration
+      - suppression
+      - trust
+      - irl
+      - outcome
+      - premium
+      - marketplace
+      - localization
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: replay_bundle
+    canonical_artifact_name: replay-bundle.json
+    schema:
+      required_fields:
+        - bundleId
+        - bundleHash
+        - reportHash
+        - createdAt
+        - actions
+      optional_fields:
+        - scenarios
+        - personas
+    retention: P365D
+    staleness_ttl: P30D
+    mandatory_for_feature_families:
+      - auth
+      - onboarding
+      - profile
+      - photo
+      - verification
+      - swipe
+      - ranking
+      - match
+      - messaging
+      - notifications
+      - orchestration
+      - suppression
+      - trust
+      - irl
+      - outcome
+      - premium
+      - localization
+      - marketplace
+      - operator
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: release_gate
+    canonical_artifact_name: release-verdict.json
+    schema:
+      required_fields:
+        - verdict
+        - gate
+        - timestamp
+      optional_fields:
+        - blockingReasons
+        - advisoryReasons
+    retention: P365D
+    staleness_ttl: P7D
+    mandatory_for_feature_families:
+      - operator
+      - release
+    missing_gate_effect: hard_fail
+  - evidence_type: localization
+    canonical_artifact_name: locale-certification-snapshot.json
+    schema:
+      required_fields:
+        - locale_id
+        - country
+        - timezone
+        - timestamp
+      optional_fields:
+        - thresholds
+    retention: P180D
+    staleness_ttl: P14D
+    mandatory_for_feature_families:
+      - irl
+      - outcome
+      - localization
+      - marketplace
+    missing_gate_effect: hard_fail
+  - evidence_type: trust_safe
+    canonical_artifact_name: trust-proof.json
+    schema:
+      required_fields:
+        - holds
+        - blocks
+        - timestamp
+      optional_fields:
+        - releases
+    retention: P365D
+    staleness_ttl: P14D
+    mandatory_for_feature_families:
+      - trust
+      - irl
+      - premium
+      - operator
+      - release
+    missing_gate_effect: hard_fail

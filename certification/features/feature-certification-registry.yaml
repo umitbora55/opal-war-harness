@@ -1,0 +1,427 @@
+version: 1.0.0
+updated_at: 2026-04-18T00:00:00.000Z
+features:
+  - feature_id: auth.session
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P30D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - &a1
+        from: proposed
+        to: implemented
+        at: 2026-04-01T00:00:00.000Z
+        actor: platform
+      - &a2
+        from: implemented
+        to: contract-passing
+        at: 2026-04-03T00:00:00.000Z
+        actor: ci
+      - &a3
+        from: contract-passing
+        to: functionally-passing
+        at: 2026-04-04T00:00:00.000Z
+        actor: qa
+      - &a4
+        from: functionally-passing
+        to: behaviorally-passing
+        at: 2026-04-05T00:00:00.000Z
+        actor: war-harness
+      - &a5
+        from: behaviorally-passing
+        to: system-certified
+        at: 2026-04-06T00:00:00.000Z
+        actor: governance
+      - &a6
+        from: system-certified
+        to: release-certified
+        at: 2026-04-07T00:00:00.000Z
+        actor: release-governance
+  - feature_id: onboarding.flow
+    state: behaviorally-passing
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+  - feature_id: profile.surface
+    state: behaviorally-passing
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+  - feature_id: photo.pipeline
+    state: functionally-passing
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+  - feature_id: verification.identity
+    state: system-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - trace
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+  - feature_id: swipe.discovery
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+  - feature_id: ranking.fairness
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - trace
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+  - feature_id: match.creation
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+  - feature_id: messaging.delivery
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - trace
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+  - feature_id: notifications.realtime
+    state: behaviorally-passing
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - trace
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+  - feature_id: orchestration.brain
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - trace
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+  - feature_id: suppression.cooldown
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - trace
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+  - feature_id: trust.safety
+    state: system-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - trace
+      - synthetic_behavioral
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+  - feature_id: irl.progression
+    state: functionally-passing
+    locale_scope: locale
+    locale_ids:
+      - TR-ISTANBUL
+      - DE-BERLIN
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - localization
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+  - feature_id: outcome.truth
+    state: functionally-passing
+    locale_scope: locale
+    locale_ids:
+      - TR-ISTANBUL
+      - DE-BERLIN
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - replay_bundle
+      - localization
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+  - feature_id: premium.entitlements
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+  - feature_id: localization.core
+    state: system-certified
+    locale_scope: locale
+    locale_ids:
+      - TR-ISTANBUL
+      - DE-BERLIN
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P14D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - localization
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+  - feature_id: operator.control-plane
+    state: contract-passing
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P30D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - trace
+      - release_gate
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+  - feature_id: marketplace.control-tower
+    state: release-certified
+    locale_scope: locale
+    locale_ids:
+      - TR-ISTANBUL
+      - DE-BERLIN
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - synthetic_behavioral
+      - trace
+      - localization
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+  - feature_id: release.governance
+    state: release-certified
+    locale_scope: global
+    certification_version: 1.0.0
+    last_certified_at: 2026-04-18T00:00:00.000Z
+    stale_after: P7D
+    required_evidence:
+      - build
+      - contract
+      - runtime
+      - audit
+      - release_gate
+      - replay_bundle
+    replay_bundle_ref: reports/runs/bootstrap/replay.json
+    state_history:
+      - *a1
+      - *a2
+      - *a3
+      - *a4
+      - *a5
+      - *a6
+

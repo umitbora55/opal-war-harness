@@ -1,0 +1,85 @@
+version: 1.0.0
+updated_at: "2026-04-18T00:00:00.000Z"
+overrides:
+  - gate_id: pr-gate
+    overrideable: true
+    forbidden_anomalies:
+      - ANOM-AUTH-001
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    required_approvers:
+      - release-manager
+      - domain-owner
+    dual_control: true
+    ttl: PT24H
+    post_override_review_required: true
+    max_active_overrides: 1
+  - gate_id: nightly-gate
+    overrideable: false
+    forbidden_anomalies:
+      - ANOM-AUTH-001
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    required_approvers: []
+    dual_control: false
+    ttl: null
+    post_override_review_required: false
+    max_active_overrides: 0
+  - gate_id: pre-release-cert
+    overrideable: false
+    forbidden_anomalies:
+      - ANOM-AUTH-001
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    required_approvers: []
+    dual_control: false
+    ttl: null
+    post_override_review_required: false
+    max_active_overrides: 0
+  - gate_id: canary-gate
+    overrideable: true
+    forbidden_anomalies:
+      - ANOM-AUTH-001
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    required_approvers:
+      - release-manager
+      - oncall
+    dual_control: true
+    ttl: PT1H
+    post_override_review_required: true
+    max_active_overrides: 1
+  - gate_id: post-deploy-verify
+    overrideable: false
+    forbidden_anomalies:
+      - ANOM-AUTH-001
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    required_approvers: []
+    dual_control: false
+    ttl: null
+    post_override_review_required: false
+    max_active_overrides: 0
+  - gate_id: rollback-gate
+    overrideable: false
+    forbidden_anomalies:
+      - ANOM-AUTH-001
+      - ANOM-TRUST-001
+      - ANOM-TRUST-002
+      - ANOM-ADM-001
+      - ANOM-EVT-001
+    required_approvers: []
+    dual_control: false
+    ttl: null
+    post_override_review_required: false
+    max_active_overrides: 0
