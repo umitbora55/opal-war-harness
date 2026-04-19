@@ -7,3 +7,4 @@ Certification blocks release when:
 
 Advisory anomalies are surfaced but do not block.
 
+Closeout note: [The Opal — Certification Campaign Closeout](./certification-closeout.md).
